@@ -1,0 +1,7 @@
+flickrPics
+
+Key:
+49a691ac8b00bf41abdb43c3104e0cd7
+
+Secret:
+5a1eb15cfd5cdf5c
