@@ -3,7 +3,8 @@ import './sccs/style.scss';
 import dog from './smallDogFirstPage.jpg';
 import cat from './catFirstPage.jpg';
 import axios from 'axios';
-import { fetchPhotos } from './services/fetchPhotos';
+import createPetContainer from './helperMethods/createPetContainer';
+import config from './config.json';
 
 let statePhotos = null;
 
@@ -40,25 +41,9 @@ let createFirstPage = () => {
   let choiceContainer = document.createElement('div');
   choiceContainer.classList.add('choiceContainer');
 
-  let dogContainer = document.createElement('div');
-  dogContainer.classList.add('dogContainer');
-  let dogText = document.createElement('div');
-  dogText.classList.add('dogText');
-  dogText.innerText = 'DOG';
-  const dogImage = new Image();
-  dogImage.src = dog;
-  dogContainer.appendChild(dogImage);
-  dogContainer.appendChild(dogText);
+  let dogContainer = createPetContainer('dogContainer', 'dogText', 'DOG', dog);
 
-  let catContainer = document.createElement('div');
-  catContainer.classList.add('catContainer');
-  let catText = document.createElement('div');
-  catText.classList.add('catText');
-  catText.innerText = 'CAT';
-  const catImage = new Image();
-  catImage.src = cat;
-  catContainer.appendChild(catImage);
-  catContainer.appendChild(catText);
+  let catContainer = createPetContainer('catContainer', 'catText', 'CAT', cat);
 
   let advancedSearch = document.createElement('button');
   advancedSearch.innerText = 'Advanced search';
@@ -124,16 +109,13 @@ const convertToDateString = input => {
   return result;
 };
 
-const baseUrl = 'https://api.flickr.com/services/rest';
-const APIkey = '49a691ac8b00bf41abdb43c3104e0cd7';
-
 const getPhotos = async type => {
   let response = await axios({
     method: 'get',
-    url: baseUrl,
+    url: config.baseUrl,
     params: {
       method: 'flickr.photos.search',
-      api_key: APIkey,
+      api_key: config.APIkey,
       tags: type,
       extras: 'url_n, owner_name, date_taken, views',
       page: 1,
@@ -163,12 +145,9 @@ const getPhotos = async type => {
     });
 
     return (statePhotos = [...newState]);
-
-    console.log('data', data);
-
-    // createPhotoPage(statePhotos);
-  } else {
-    console.log('An error occured!');
+  }
+  if (error) {
+    console.log(error);
   }
 };
 
