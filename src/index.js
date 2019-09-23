@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import './sccs/style.scss';
-import axios from 'axios';
 import dog from './smallDogFirstPage.jpg';
 import cat from './catFirstPage.jpg';
+import axios from 'axios';
+import { fetchPhotos } from './services/fetchPhotos';
 
 let statePhotos = null;
 
@@ -23,7 +24,7 @@ let createFooter = () => {
   footer.setAttribute('id', 'footer');
 
   let footerText = document.createElement('span');
-  footerText.innerHTML = "&copy; 2019 Harald Carlsten - Man's best friend";
+  footerText.inner = "&copy; 2019 Harald Carlsten - Man's best friend";
 
   footer.appendChild(footerText);
   parent.appendChild(footer);
@@ -61,7 +62,7 @@ let createFirstPage = () => {
 
   let advancedSearch = document.createElement('button');
   advancedSearch.innerText = 'Advanced search';
-  advancedSearch.onclick = 
+  advancedSearch.addEventListener('click', () => createPhotoView('dog'), false);
 
   firstPageContainer.appendChild(heading);
   choiceContainer.appendChild(catContainer);
@@ -76,7 +77,7 @@ let createPhotoElement = (src, alt, photographer, dateTaken, id) => {
   const textContainerId = `${id}${src}`;
   let listElement = document.createElement('li');
   listElement.onmouseover = () => showInfo(textContainerId);
-  listElement.onmouseout = () => hideIndo(textContainerId);
+  listElement.onmouseout = () => hideInfo(textContainerId);
   let textContainer = document.createElement('div');
   textContainer.classList.add('textContainer');
   textContainer.id = textContainerId;
@@ -120,8 +121,6 @@ const convertToDateString = input => {
 
   let result = event.toDateString();
 
-  console.log('date', result);
-
   return result;
 };
 
@@ -163,7 +162,7 @@ const getPhotos = async type => {
       };
     });
 
-    statePhotos = [...newState];
+    return (statePhotos = [...newState]);
 
     console.log('data', data);
 
@@ -173,7 +172,10 @@ const getPhotos = async type => {
   }
 };
 
-// getPhotos('kittens');
+const createPhotoView = async type => {
+  let state = await getPhotos(type);
+  createPhotoPage(state);
+};
 
 createFooter();
 createFirstPage();
