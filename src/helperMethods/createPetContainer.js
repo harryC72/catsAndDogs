@@ -2,6 +2,7 @@ const createPetContainer = (
   containerName,
   textElementClassName,
   text,
+  imageId,
   imageSrc,
 ) => {
   let element = document.createElement('div');
@@ -11,6 +12,7 @@ const createPetContainer = (
   elementText.innerText = text;
   const image = new Image();
   image.src = imageSrc;
+  image.id = imageId;
   element.appendChild(image);
   element.appendChild(elementText);
 

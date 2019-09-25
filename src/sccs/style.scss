@@ -50,7 +50,7 @@ html {
   .catContainer,
   .dogContainer {
     margin: 10px;
-    width: 300px;
+    width: auto;
     height: 300px;
     box-shadow: 5px;
     background: $background-color;
@@ -76,15 +76,17 @@ html {
 }
 
 #footer {
-  margin-top: -60px;
   position: fixed;
+  display: block;
   left: 0;
   bottom: 0;
   width: 100%;
   background-color: $background-color;
+  text-align: left;
+  color: black;
 }
 
-.photoContainer {
+.allPhotosContainer {
   background: $background-color;
   list-style-type: none;
   padding: 0;
@@ -98,6 +100,7 @@ html {
   flex-flow: row wrap;
   -webkit-flex-flow: row wrap;
   justify-content: center;
+
   li {
     margin: 10px;
     width: 23%;
@@ -119,10 +122,15 @@ html {
       top: 10px;
     }
 
+    .photoContainer {
+      position: relative;
+      padding-top: 20px; /* 16:9 Aspect Ratio */
+    }
+
     img {
-      max-height: 170px;
+      width: 100%;
       max-width: 280px;
-      width: auto;
+      max-height: 170px;
     }
   }
 }
@@ -138,7 +146,7 @@ html {
   display: none;
 }
 
-.modal {
+.modalContainer {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 101; /* Sit on top */
@@ -150,28 +158,94 @@ html {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+  /* Modal Content */
+  .modalContent {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  /* The Close Button */
+  .closeModal {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .closeModal:hover,
+  .closeModal:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
 }
 
-/* Modal Content */
-.modalContent {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+.backArrowContainer {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  flex-direction: row;
+
+  .filledTriangle {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-right: 50px solid #555;
+    border-bottom: 25px solid transparent;
+  }
+
+  .rectangle {
+    position: relative;
+    height: 50px;
+    width: 125px;
+    background-color: #555;
+  }
+
+  .emptyTriangle {
+    position: absolute;
+    left: 125px;
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-right: 50px solid $background-color;
+    border-bottom: 25px solid transparent;
+  }
 }
 
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+#textBox {
+  position: absolute;
+  z-index: 100;
+  left: 45px;
+  top: 20px;
+  color: white;
 }
 
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
+.backArrowMobileContainer {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  flex-direction: row;
+
+  .mobileTriangle {
+    position: relative;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-right: 20px solid #555;
+    border-bottom: 10px solid transparent;
+  }
+
+  #textMobile {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    margin-left: 5px;
+  }
 }
