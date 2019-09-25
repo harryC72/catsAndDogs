@@ -1,6 +1,6 @@
 import axios from 'axios';
 import convertToDateString from '../helperMethods/convertToDateString';
-import Modal from '../components/Modal';
+import Modal from '../components/TextModal';
 import Backdrop from '../components/Backdrop';
 import config from '../config.json';
 
@@ -24,8 +24,9 @@ export const getPhotos = async type => {
     let data = response.data;
 
     if (response) {
-      let newState = data.photos.photo.map(item => {
+      let newState = data.photos.photo.map((item, index) => {
         return {
+          index: index,
           ownerId: item.owner,
           owner: item.ownername,
           secret: item.secret,

@@ -5,7 +5,7 @@ import cat from '../Assets/catFirstPage.jpg';
 import axios from 'axios';
 import createPetContainer from '../helperMethods/createPetContainer';
 import config from '../config.json';
-import Modal from '../components/Modal';
+import Modal from './TextModal';
 import Backdrop from '../components/Backdrop';
 import showInfo from '../services/showInfo';
 import hideInfo from '../services/hideInfo';
@@ -53,9 +53,10 @@ export let FirstPage = state => {
   parent.appendChild(firstPageContainer);
 };
 
-let createPhotoElement = (src, alt, photographer, dateTaken, id) => {
+let createPhotoElement = (src, alt, photographer, dateTaken, id, index) => {
   const textContainerId = `${id}${src}`;
   let listElement = document.createElement('li');
+  listElement.index = index;
   listElement.onmouseover = () => showInfo(textContainerId);
   listElement.onmouseout = () => hideInfo(textContainerId);
   let textContainer = document.createElement('div');
@@ -72,6 +73,7 @@ let createPhotoElement = (src, alt, photographer, dateTaken, id) => {
   let photoElement = document.createElement('img');
   photoElement.src = src;
   photoElement.alt = alt;
+  
 
   photoContainer.appendChild(photoElement);
   listElement.appendChild(photoContainer);
@@ -93,6 +95,7 @@ let createPhotoPage = state => {
       element.type,
       element.owner,
       element.dateTaken,
+      element.index,
     );
     photoContainer.appendChild(photoItem);
   });
