@@ -1,0 +1,20 @@
+photoElement.addEventListener('click', () =>
+    createImageModalWithBackdrop(srcLarge, alt),
+  );
+
+const createImageModalWithBackdrop = (src, alt) => {
+  let parent = document.getElementById('root');
+  let backdrop = Backdrop();
+  backdrop.style.display = 'block';
+
+  close = () => {
+    backdrop.style.display = 'none';
+    imageModal.style.display = 'none';
+  };
+
+  let imageModal = ImageModal(src, alt, close);
+  imageModal.style.display = 'block';
+
+  parent.appendChild(backdrop);
+  parent.appendChild(modal);
+};

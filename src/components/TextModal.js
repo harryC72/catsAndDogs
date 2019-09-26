@@ -24,10 +24,10 @@
 
 const TextModal = (content, closeFunction) => {
   let modalContainer = document.createElement('div');
-  modalContainer.classList.add('imageModalContainer');
+  modalContainer.classList.add('textModalContainer');
 
   let modalContent = document.createElement('div');
-  modalContent.classList.add('imageModalContent');
+  modalContent.classList.add('textModalContent');
 
   let closeButton = document.createElement('span');
   closeButton.classList.add('closeModal');

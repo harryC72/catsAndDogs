@@ -38,10 +38,9 @@ const ImageModal = (src, alt, closeFunction) => {
   imageElement.classList.add('imageModalContent');
   imageElement.src = src;
   imageElement.alt = alt;
+  modalContent.appendChild(closeButton);
   modalContent.appendChild(imageElement);
   modalContainer.appendChild(modalContent);
-
-  modalContent.appendChild(closeButton);
 
   return modalContainer;
 };

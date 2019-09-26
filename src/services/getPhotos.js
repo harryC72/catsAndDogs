@@ -1,6 +1,6 @@
 import axios from 'axios';
 import convertToDateString from '../helperMethods/convertToDateString';
-import Modal from '../components/TextModal';
+import TextModal from '../components/TextModal';
 import Backdrop from '../components/Backdrop';
 import config from '../config.json';
 
@@ -49,20 +49,20 @@ export const getPhotos = async type => {
     }
   } catch (error) {
     if (error.response) {
-      createModalWithBackdropAndContent(
+      createTextModalWithBackdropAndContent(
         'Something went wrong with the response',
       );
     } else if (error.request) {
-      createModalWithBackdropAndContent(
+      createTextModalWithBackdropAndContent(
         'Something went wrong with the request',
       );
     } else {
-      createModalWithBackdropAndContent('Something went wrong');
+      createTextModalWithBackdropAndContent('Something went wrong');
     }
   }
 };
 
-const createModalWithBackdropAndContent = content => {
+const createTextModalWithBackdropAndContent = content => {
   let parent = document.getElementById('root');
   let backdrop = Backdrop();
   backdrop.style.display = 'block';
@@ -72,7 +72,7 @@ const createModalWithBackdropAndContent = content => {
     modal.style.display = 'none';
   };
 
-  let modal = Modal(content, null, null, close);
+  let modal = TextModal(content, close);
   modal.style.display = 'block';
 
   parent.appendChild(backdrop);
