@@ -43,7 +43,6 @@ export const getPhotos = async type => {
       });
 
       let state = [...newState];
-      console.log('getPhotosState', state);
 
       return state;
     }
