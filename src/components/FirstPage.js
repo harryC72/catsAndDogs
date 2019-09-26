@@ -61,8 +61,22 @@ let createPhotoElement = (
   const textContainerId = `${id}${srcNormal}`;
   let listElement = document.createElement('li');
   listElement.index = index;
-  listElement.onmouseover = () => showInfo(textContainerId);
-  listElement.onmouseout = () => hideInfo(textContainerId);
+  if (screen.width > 720) {
+    listElement.onmouseover = () => showInfo(textContainerId);
+    listElement.onmouseout = () => hideInfo(textContainerId);
+  }
+  if (screen < 720) {
+    listElement.addEventListener(
+      'touchstart',
+      () => showInfo(textContainerId),
+      false,
+    );
+    listElement.addEventListener(
+      'touchend',
+      () => hideInfo(textContainerId),
+      false,
+    );
+  }
 
   let textContainer = document.createElement('div');
   textContainer.classList.add('textContainer');
@@ -140,13 +154,14 @@ const createPhotoView = async type => {
 
 const createImageModalWithBackdrop = (src, alt) => {
   let parent = document.getElementById('root');
-  let backdrop = Backdrop();
-  backdrop.style.display = 'block';
 
   close = () => {
     backdrop.style.display = 'none';
     imageModal.style.display = 'none';
   };
+
+  let backdrop = Backdrop(close);
+  backdrop.style.display = 'block';
 
   let imageModal = ImageModal(src, alt, close);
   imageModal.style.display = 'block';
